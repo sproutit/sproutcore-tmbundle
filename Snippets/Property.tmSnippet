@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>${TM_SELECTED_TEXT}: function()
+{
+	$0
+}.property('${1:${TM_SELECTED_TEXT:${TM_CURRENT_WORD:property}}}'${2:,'${3:secondary}'})${10:,}</string>
+	<key>keyEquivalent</key>
+	<string>~@P</string>
+	<key>name</key>
+	<string>Property</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>tabTrigger</key>
+	<string>.prop</string>
+	<key>uuid</key>
+	<string>B7597C31-C650-4195-8884-B12B329C2774</string>
+</dict>
+</plist>

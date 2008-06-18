@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>SproutCore</string>
+	<key>ordering</key>
+	<array>
+		<string>935B7CD7-C9DB-4EA5-AAC5-5BB759C5D9A7</string>
+		<string>B7597C31-C650-4195-8884-B12B329C2774</string>
+		<string>04CDE9BB-25EF-4096-B524-BE398AF52C09</string>
+	</array>
+	<key>uuid</key>
+	<string>B1009C4A-4B02-40F0-ABF2-85F3DD12A8C4</string>
+</dict>
+</plist>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>arguments.callee.base.apply(${1:this},${2:arguments});</string>
+	<key>name</key>
+	<string>Super</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>tabTrigger</key>
+	<string>super</string>
+	<key>uuid</key>
+	<string>04CDE9BB-25EF-4096-B524-BE398AF52C09</string>
+</dict>
+</plist>
