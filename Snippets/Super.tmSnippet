@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>arguments.callee.base.apply(${1:this},${2:arguments});</string>
+	<string>sc_super(${1:this},${2:arguments});</string>
 	<key>name</key>
 	<string>Super</string>
 	<key>scope</key>
