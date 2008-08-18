@@ -12,10 +12,12 @@ LAUNCHER = "#{SUPPORT}/bin/beautifier.js"
 if (SELECTED_TEXT)
   #pass the selected text options as arguments to the launcher
   # puts "#{BEAUTIFY} #{LAUNCHER}  --  {selectedText: true, tabSize: #{TAB_SIZE}}"
-  output = `"#{JSC}" "#{BEAUTIFY}" "#{LAUNCHER}" -- "{selectedText: true, tabSize: #{TAB_SIZE}}" "#{SELECTED_TEXT}"`
+  sel = "#{SELECTED_TEXT}"
+  sel.gsub!('"','\"')
+  output = `"#{JSC}" "#{BEAUTIFY}" "#{LAUNCHER}" -- "{selectedText: true, tabSize: #{TAB_SIZE}, indentSize: 4}" "#{sel}"`
 else
   #pass the selected file and '-f' param as an argument to the launcher
-   output = `"#{JSC}" "#{BEAUTIFY}" "#{LAUNCHER}" -- "{file: '#{FILEPATH}', tabSize: #{TAB_SIZE}}"`
+   output = `"#{JSC}" "#{BEAUTIFY}" "#{LAUNCHER}" -- "{file: '#{FILEPATH}', tabSize: #{TAB_SIZE}, indentSize: 4}"`
 end
-# output = output.split(/\n/)
+#output = output.split(/\n/)
 puts output

@@ -24,10 +24,10 @@
 
   if (!sel) {
     quit(1);
-    print("nothing to format");
+    // print("nothing to format");
   }
 
-  output = js_beautify(sel, options.tabSize);
+  output = js_beautify(sel, (options.tabSize));
   print(output);
 
 })(arguments);

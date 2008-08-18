@@ -8,7 +8,7 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
 */
 
 /*extern JSLINT, JSLINT_PREFS */
-/*global print, quit, readFile */
+/*global print, quit, readFile, require, SC */
 
 (function(a) {
     if (!a[0]) {
@@ -18,6 +18,7 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
     var prefs = JSLINT_PREFS;
     var input = readFile(a[0]);
     var filepath = a[0];
+    var quick = (a[1] === "quick" || a[1] === "-q" || a[1] === "--quick")
     if (!prefs) {
         prefs = {
             rhino: true,
@@ -32,9 +33,15 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
         if (filepath) {
             JSLINT.filepath = filepath;
         }
-        print(JSLINT.report(false, "asdfj;alskdjf;alskjdf"));
+        if (quick) {
+          print("JSLint found " + JSLINT.errors.length + " problems");
+        } else {
+          print(JSLINT.report(false, "asdfj;alskdjf;alskjdf"));
+        }
+        
     } else {
+        if(!quick) {
         print("jslint: No problems found in " + a[0]);
-        quit(1);
+        } 
     }
 })(arguments);
