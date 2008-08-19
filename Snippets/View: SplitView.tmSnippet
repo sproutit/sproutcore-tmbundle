@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>${TM_SC_TEMPLATE_START_RUBY_INLINE}split_view ${1::${2:workspace}, }${3::class =&gt; '${4:sc-app-workspace}', }${5::can_collapse_views =&gt; ${6:true}, }${7::direction =&gt; :${8:vertical}} do${TM_SC_TEMPLATE_END_RUBY_INLINE}
+  ${TM_SC_TEMPLATE_START_RUBY_INLINE}scroll_view ${20::top_left_view, }${21::class =&gt; '${22:list_view}', }${23::minThickness =&gt; ${24:50}, }${25::can_collapse =&gt; ${26:true}, }${27::collapse_at_thickness =&gt; ${28:100}} do${TM_SC_TEMPLATE_END_RUBY_INLINE}
+    ${TM_SC_TEMPLATE_START_RUBY_INLINE}view :list_view do${TM_SC_TEMPLATE_END_RUBY_INLINE}
+      &lt;p&gt;This is the top left view.&lt;/p&gt;
+    ${TM_SC_TEMPLATE_END_RUBY_BLOCK}
+    ${TM_SC_TEMPLATE_START_RUBY_EXPR}split_divider_view${30: :divider}${TM_SC_TEMPLATE_END_RUBY_EXPR}
+  ${TM_SC_TEMPLATE_START_RUBY_INLINE}scroll_view ${40::bottom_right_view, }${41::class =&gt; '${42:details_view}', }${43::minThickness =&gt; ${44:50}, }${45::can_collapse =&gt; ${46:true}, }${47::collapse_at_thickness =&gt; ${48:100}} do${TM_SC_TEMPLATE_END_RUBY_INLINE}
+      ${TM_SC_TEMPLATE_START_RUBY_INLINE}view :details_view1 do${TM_SC_TEMPLATE_END_RUBY_INLINE}
+        &lt;p&gt;This is the bottom/right view.&lt;/p&gt;
+      ${TM_SC_TEMPLATE_END_RUBY_BLOCK}
+    ${TM_SC_TEMPLATE_END_RUBY_BLOCK}
+  ${TM_SC_TEMPLATE_END_RUBY_BLOCK}
+${TM_SC_TEMPLATE_END_RUBY_BLOCK}
+</string>
+	<key>name</key>
+	<string>SplitView</string>
+	<key>scope</key>
+	<string>text.html.ruby, text.haml</string>
+	<key>tabTrigger</key>
+	<string>split</string>
+	<key>uuid</key>
+	<string>F480CA51-8502-421F-8F42-3D2ADAC9F0F9</string>
+</dict>
+</plist>
