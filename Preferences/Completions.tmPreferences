@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Completions</string>
+	<key>scope</key>
+	<string>source.js, source.prototype.js, source.sproutcore.js</string>
+	<key>settings</key>
+	<dict>
+		<key>completions</key>
+		<array>
+			<string>get</string>
+			<string>getPath</string>
+			<string>set</string>
+			<string>invoke</string>
+			<string>invokeLater</string>
+			<string>value</string>
+			<string>content</string>
+			<string>Binding</string>
+			<string>observes</string>
+			<string>beginPropertyChanges</string>
+			<string>endPropertyChanges</string>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>964D69BA-BBDE-411B-AFB0-47358F9A0F0A</string>
+</dict>
+</plist>
