@@ -18,13 +18,9 @@ if (SELECTED_TEXT)
   #pass the selected text options as arguments to the launcher
   # puts "#{BEAUTIFY} #{LAUNCHER}  --  {selectedText: true, tabSize: #{TAB_SIZE}}"
   sel = "#{SELECTED_TEXT}"
-  # FileUtils.touch(ENV['TM_BUNDLE_SUPPORT'] + "/tmp/jsc-tmp.js")
   #   my_file = File.new(ENV['TM_BUNDLE_SUPPORT'] +  "/tmp/jsc-tmp.js", "w+")
   #   my_file.puts(sel)
-  path = ENV['TM_BUNDLE_SUPPORT'] +  "/tmp/jsc-tmp.js"
-  if (!File.exists?(path))
-    FileUtils.touch(path)
-  end
+  path = ENV['TM_BUNDLE_SUPPORT'] +  "/jsc-tmp" + rand(1000000).to_s + ".js"
   my_file = File.new(path,"w+") # create a file object
   my_file.puts(sel)             # put the selection in it
   my_file.flock(File::LOCK_UN)  # unlock the file
