@@ -4,7 +4,7 @@ FILEPATH = ENV['TM_FILEPATH']
 SUPPORT  = ENV['TM_BUNDLE_SUPPORT']
 TAB_SIZE = ENV['TM_TAB_SIZE']
 SELECTED_TEXT = ENV['TM_SELECTED_TEXT']
-JSC   = "#{SUPPORT}/bin/jsc"
+JSC   = "#{SUPPORT}/bin/JavaScriptCore.framework/Resources/jsc"
 
 BEAUTIFY   = "#{SUPPORT}/bin/beautify.js"
 LAUNCHER = "#{SUPPORT}/bin/beautifier.js"
