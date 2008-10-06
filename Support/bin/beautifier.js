@@ -16,18 +16,18 @@
     print("no options provided");
   }
 
-  if (options.selectedText) {
-    sel = a[1];
-  } else if (options.file) {
+  if (options.file) {
     sel = readFile(options.file);
   }
 
   if (!sel) {
+    // print("Selection failed");
     quit(1);
     // print("nothing to format");
   }
 
-  output = js_beautify(sel, (options.tabSize));
+  // js_beautify(js_source_text, indent_size, indent_character, indent_level)
+  output = js_beautify(sel, options.tabSize, " ");
   print(output);
 
 })(arguments);

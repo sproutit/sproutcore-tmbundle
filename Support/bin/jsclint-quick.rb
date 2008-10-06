@@ -2,7 +2,7 @@
 FILENAME = ENV['TM_FILENAME']
 FILEPATH = ENV['TM_FILEPATH']
 SUPPORT  = ENV['TM_BUNDLE_SUPPORT']
-JSC   = "#{SUPPORT}/bin/jsc"
+JSC   = "#{SUPPORT}/bin/JavaScriptCore.framework/Resources/jsc"
 
 JSLINT   = "#{SUPPORT}/bin/jslint.js"
 PREFS = "#{SUPPORT}/bin/prefs.js"
