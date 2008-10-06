@@ -27,7 +27,7 @@
   }
 
   // js_beautify(js_source_text, indent_size, indent_character, indent_level)
-  output = js_beautify(sel, options.tabSize, " ");
+  output = js_beautify(sel, options.indentSize, " ");
   print(output);
 
 })(arguments);
