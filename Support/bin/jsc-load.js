@@ -511,23 +511,22 @@ JSLINT = function () {
             replace(/>/g, '&gt;');
     };
 
-    String.prototype.isAlpha = function () {
-        return (this >= 'a' && this <= 'z\uffff') ||
-            (this >= 'A' && this <= 'Z\uffff');
+    String.prototype.isAlpha = function() {
+      return (this >= 'a' && this <= 'z\uffff') || (this >= 'A' && this <= 'Z\uffff');
     };
 
-
-    String.prototype.isDigit = function () {
-        return (this >= '0' && this <= '9');
+    String.prototype.isDigit = function() {
+      return (this >= '0' && this <= '9');
     };
 
-
-    String.prototype.supplant = function (o) {
-        return this.replace(/\{([^{}]*)\}/g, function (a, b) {
-            var r = o[b];
-            return typeof r === 'string' || typeof r === 'number' ? r : a;
-        });
+    String.prototype.supplant = function(o) {
+      return this.replace(/\{([^{}]*)\}/g,
+      function(a, b) {
+        var r = o[b];
+        return typeof r === 'string' || typeof r === 'number' ? r: a;
+      });
     };
+
 
     String.prototype.name = function () {
 

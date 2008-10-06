@@ -29,6 +29,7 @@ if (SELECTED_TEXT)
   my_file.puts(sel)             # put the selection in it
   my_file.flock(File::LOCK_UN)  # unlock the file
   output = `"#{JSC}" "#{BEAUTIFY}" "#{LAUNCHER}" -- "{file: '#{path}', tabSize: #{TAB_SIZE}, indentSize: 4}"`
+  File.delete(path)
 else
   #pass the selected file and '-f' param as an argument to the launcher
    output = `"#{JSC}" "#{BEAUTIFY}" "#{LAUNCHER}" -- "{file: '#{FILEPATH}', tabSize: #{TAB_SIZE}, indentSize: 4}"`
