@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>sc_super(${1:this},${2:arguments});</string>
+	<string>.set('${1:property}',${2:value});</string>
 	<key>name</key>
-	<string>super</string>
+	<string>set()</string>
 	<key>scope</key>
 	<string>source.js</string>
 	<key>tabTrigger</key>
-	<string>super</string>
+	<string>.set</string>
 	<key>uuid</key>
-	<string>04CDE9BB-25EF-4096-B524-BE398AF52C09</string>
+	<string>7F40070C-B6C3-44B8-90C8-5C4F13062D14</string>
 </dict>
 </plist>
