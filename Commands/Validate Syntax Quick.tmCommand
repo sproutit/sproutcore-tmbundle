@@ -8,6 +8,8 @@
 	<string>"${TM_RUBY:-ruby}" "$TM_BUNDLE_SUPPORT/bin/jsclint-quick.rb"</string>
 	<key>input</key>
 	<string>document</string>
+	<key>keyEquivalent</key>
+	<string>@s</string>
 	<key>name</key>
 	<string>Validate Syntax Quick</string>
 	<key>output</key>

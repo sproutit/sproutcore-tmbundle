@@ -12,7 +12,7 @@ html_footer</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^~v</string>
+	<string>^V</string>
 	<key>name</key>
 	<string>Validate Syntax</string>
 	<key>output</key>

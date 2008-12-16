@@ -908,7 +908,7 @@ JSLINT = function () {
                     case '//':
                         if (src || (xmode && !(xmode === 'script' || xmode === 'CDATA'))) {
                             warningAt("Unexpected comment.", line, character);
-                        } else if (xmode === 'script' && /\<\/script\>/i.test(s)) {
+                        } else if (xmode === 'script' && (/\<\/script\>/i).test(s)) {
                             warningAt("Unexpected <\/script> in comment.", line, character);
                         } else if ((option.safe || xmode === 'script') && ax.test(s)) {
                             warningAt("Dangerous comment.", line, character);
@@ -2006,7 +2006,9 @@ klass:                              do {
             scope = Object.create(scope);
         }
         nonadjacent(token, nexttoken);
-        var t = nexttoken;
+        var t = nexttoken, line;
+        
+        // after block begins, expect a {
         if (nexttoken.id === '{') {
             advance('{');
             if (nexttoken.id !== '}' || token.line !== nexttoken.line) {
@@ -2019,7 +2021,13 @@ klass:                              do {
                 indentation();
             }
             advance('}', t);
-        } else {
+            
+        // if block begins and follows on same line, allow no {
+        } else if (token.line === nexttoken.line) {
+          line = token.line ;
+          while(nexttoken.line === line) advance();
+          
+        } else { 
             warning("Expected '{a}' and instead saw '{b}'.",
                     nexttoken, '{', nexttoken.value);
             noreach = true;
@@ -2581,12 +2589,12 @@ klass:                              do {
                                 } else if (t.id.slice(0, adsafe_id.length) !== adsafe_id) {
                                     warning("ADsafe violation: An id must have a '{a}' prefix",
                                             nexttoken, adsafe_id);
-                                } else if (!/^[A-Z]+_[A-Z]+$/.test(t.id)) {
+                                } else if (!(/^[A-Z]+_[A-Z]+$/).test(t.id)) {
                                     warning("ADSAFE violation: bad id.", t);
                                 }
                             } else {
                                 adsafe_id = t.id;
-                                if (!/^[A-Z]+_$/.test(adsafe_id)) {
+                                if (!(/^[A-Z]+_$/).test(adsafe_id)) {
                                     warning("ADSAFE violation: bad id.", t);
                                 }
                             }
@@ -3492,7 +3500,7 @@ klass:                              do {
         nospace();
         parse(20);
         if (nexttoken.id === '=') {
-            warning("Expected a conditional expression and instead saw an assignment.");
+            //warning("Expected a conditional expression and instead saw an assignment.");
             advance('=');
             parse(20);
         }
@@ -3552,7 +3560,7 @@ klass:                              do {
         nospace();
         parse(20);
         if (nexttoken.id === '=') {
-            warning("Expected a conditional expression and instead saw an assignment.");
+            //warning("Expected a conditional expression and instead saw an assignment.");
             advance('=');
             parse(20);
         }
@@ -3672,7 +3680,7 @@ klass:                              do {
         nospace();
         parse(20);
         if (nexttoken.id === '=') {
-            warning("Expected a conditional expression and instead saw an assignment.");
+            //warning("Expected a conditional expression and instead saw an assignment.");
             advance('=');
             parse(20);
         }
@@ -3726,7 +3734,7 @@ klass:                              do {
             if (nexttoken.id !== ';') {
                 parse(20);
                 if (nexttoken.id === '=') {
-                    warning("Expected a conditional expression and instead saw an assignment.");
+                    //warning("Expected a conditional expression and instead saw an assignment.");
                     advance('=');
                     parse(20);
                 }
