@@ -8,7 +8,7 @@ var JSLINT_PREFS = {
   evil: false,
   forin: true,
   fragment: false,
-  laxbreak: false,
+  laxbreak: true,
   nomen: false, // allow leading _ in identifiers
   on: false,
   passfail: false,
@@ -22,5 +22,5 @@ var JSLINT_PREFS = {
   white: false,
   widget: false,
   indent: 2,
-  predef: ['SC', 'require', 'sc_super', 'YES', 'NO', 'static_url']
+  predef: ['SC', 'require', 'sc_super', 'YES', 'NO', 'static_url', 'sc_static', 'sc_resource', 'sc_require']
 };
