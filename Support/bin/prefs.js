@@ -1,26 +1,26 @@
 var JSLINT_PREFS = {
-  adsafe: false,
-  bitwise: false,
-  browser: true,
-  cap: false,
-  debug: true,
-  eqeqeq: false,
-  evil: false,
-  forin: true,
-  fragment: false,
-  laxbreak: true,
-  nomen: false, // allow leading _ in identifiers
-  on: false,
-  passfail: false,
-  plusplus: false,
-  regexp: true,
-  rhino: false,
-  safe: false,
-  sidebar: false,
-  sub: false,
-  undef: true,
-  white: false,
-  widget: false,
+  adsafe     : false, // if ADsafe should be enforced
+  bitwise    : false, // if bitwise operators should not be allowed
+  browser    : true,  // if the standard browser globals should be predefined
+  cap        : false, // if upper case HTML should be allowed
+  debug      : true,  // if debugger statements should be allowed
+  eqeqeq     : false, // if === should be required
+  evil       : false, // if eval should be allowed
+  forin      : true,  // if for in statements must filter
+  fragment   : false, // if HTML fragments should be allowed
+  laxbreak   : true,  // if line breaks should not be checked
+  nomen      : false, // if names should be checked
+  on         : false, // if HTML event handlers should be allowed
+  passfail   : false, // if the scan should stop on first error
+  plusplus   : false, // if increment/decrement should not be allowed
+  regexp     : true,  // if the . should not be allowed in regexp literals
+  rhino      : false, // if the Rhino environment globals should be predefined
+  undef      : true,  // if variables should be declared before used
+  safe       : false, // if use of some browser features should be restricted
+  sidebar    : false, // if the System object should be predefined
+  sub        : true,  // if all forms of subscript notation are tolerated
+  white      : false, // if strict whitespace rules apply
+  widget     : false, // if the Yahoo Widgets globals should be predefined
   indent: 2,
-  predef: ['SC', 'require', 'sc_super', 'YES', 'NO', 'static_url', 'sc_static', 'sc_resource', 'sc_require']
+  predef: ['SC', 'require', 'sc_super', 'YES', 'NO', 'static_url', 'sc_static', 'sc_resource', 'sc_require', 'module', 'test', 'equals', 'same', 'ok', 'CoreTest', 'SproutCore', '$', 'jQuery', 'start', 'stop', 'expect']
 };
