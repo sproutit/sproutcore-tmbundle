@@ -2005,6 +2005,7 @@ klass:                              do {
         if (f) {
             scope = Object.create(scope);
         }
+        
         nonadjacent(token, nexttoken);
         var t = nexttoken, line;
         
@@ -2027,7 +2028,7 @@ klass:                              do {
           line = token.line ;
           while(nexttoken.line === line) advance();
           
-        } else { 
+        } else {
             warning("Expected '{a}' and instead saw '{b}'.",
                     nexttoken, '{', nexttoken.value);
             noreach = true;
@@ -3650,7 +3651,19 @@ klass:                              do {
                         error("Each value should have its own case label.");
                         return;
                     case ':':
-                        statements();
+                        var _block = false ;
+                        if (nexttoken.id == '{') {
+                          _block = true ;
+                          advance('{');
+                        }
+                        statements(); // will throw if a block is present
+                        if (_block && nexttoken.id == '}') {
+                          advance('}');
+                        }
+                        else {
+                          error("Expected '{a}' and instead saw '{b}'.",
+                              nexttoken, '}', nexttoken.value);
+                        }
                         break;
                     default:
                         error("Missing ':' on a case clause.", token);
