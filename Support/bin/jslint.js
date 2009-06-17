@@ -197,6 +197,7 @@ JSLINT = function () {
             safe       : true, // if use of some browser features should be restricted
             sidebar    : true, // if the System object should be predefined
             sub        : true, // if all forms of subscript notation are tolerated
+            switchToIf : true, // if single case switches should be turned into if statements
             white      : true, // if strict whitespace rules apply
             widget     : true  // if the Yahoo Widgets globals should be predefined
         },
@@ -3634,8 +3635,8 @@ klass:                              do {
                 indent -= option.indent;
                 indentation();
                 advance('}', t);
-                if (this.cases.length === 1 || this.condition.id === 'true' ||
-                        this.condition.id === 'false') {
+                if (option.switchToIf && (this.cases.length === 1 || this.condition.id === 'true' ||
+                        this.condition.id === 'false')) {
                     warning("This 'switch' should be an 'if'.", this);
                 }
                 funct['(breakage)'] -= 1;

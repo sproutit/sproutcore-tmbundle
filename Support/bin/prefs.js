@@ -19,6 +19,7 @@ var JSLINT_PREFS = {
   safe       : false, // if use of some browser features should be restricted
   sidebar    : false, // if the System object should be predefined
   sub        : true,  // if all forms of subscript notation are tolerated
+  switchToIf : false, // if single case switches should be turned into if statements
   white      : false, // if strict whitespace rules apply
   widget     : false, // if the Yahoo Widgets globals should be predefined
   indent: 2,
