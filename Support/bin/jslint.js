@@ -132,13 +132,13 @@ SOFTWARE.
     small, sort, span, spawn, speak, special, spellcheck, split, src,
     srcheight, srcwidth, status, strong, style, sub, substr, subviews, sup,
     superview, supplant, suppressUpdates, sync, system, table, tag, tbody,
-    td, tellWidget, test, text, textarea, tfoot, th, thead, thumbcolor,
-    ticking, ticklabel, ticks, tileorigin, timer, title, toLowerCase,
-    toString, toUpperCase, toint32, token, tooltip, top, tr, tracking,
-    trigger, truncation, tt, type, u, ul, undef, unescape, union, unwatch,
-    updateNow, url, usefileicon, valign, value, valueOf, var, version,
-    visible, vlinesize, voffset, vregistrationpoint, vscrollbar, watch,
-    white, widget, width, window, wrap, yahooCheckLogin, yahooLogin,
+    switchToIf, td, tellWidget, test, text, textarea, tfoot, th, thead, 
+    thumbcolor, ticking, ticklabel, ticks, tileorigin, timer, title, 
+    toLowerCase, toString, toUpperCase, toint32, token, tooltip, top, tr, 
+    tracking, trigger, truncation, tt, type, u, ul, undef, unescape, union, 
+    unwatch, updateNow, url, usefileicon, valign, value, valueOf, var, 
+    version, visible, vlinesize, voffset, vregistrationpoint, vscrollbar, 
+    watch, white, widget, width, window, wrap, yahooCheckLogin, yahooLogin,
     yahooLogout, zorder, filepath
 */
 
@@ -3654,16 +3654,18 @@ klass:                              do {
                     case ':':
                         var _block = false ;
                         if (nexttoken.id == '{') {
-                          _block = true ;
-                          advance('{');
+                            _block = true ;
+                            advance('{');
                         }
                         statements(); // will throw if a block is present
-                        if (_block && nexttoken.id == '}') {
-                          advance('}');
-                        }
-                        else {
-                          error("Expected '{a}' and instead saw '{b}'.",
-                              nexttoken, '}', nexttoken.value);
+                        if (_block) {
+                            if (nexttoken.id == '}') {
+                                advance('}');
+                            }
+                            else {
+                                error("Expected '{a}' and instead saw '{b}'.",
+                                    nexttoken, '}', nexttoken.value);
+                            }
                         }
                         break;
                     default:
