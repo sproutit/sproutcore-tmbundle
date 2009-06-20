@@ -5,9 +5,7 @@
 # (c) 2000-2002 by Harri Porten <porten@kde.org> and
 #                  David Faure <faure@kde.org>
 # Modified (c) 2004 by Nikolas Zimmermann <wildfox@kde.org>
-# Copyright (C) 2007 Apple Inc. All rights reserved.
-#
-# Part of the KJS library.
+# Copyright (C) 2007, 2008, 2009 Apple Inc. All rights reserved.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,7 +28,7 @@ my $file = $ARGV[0];
 shift;
 my $includelookup = 0;
 
-# Use -i as second argument to make it include "lookup.h"
+# Use -i as second argument to make it include "Lookup.h"
 $includelookup = 1 if (defined($ARGV[0]) && $ARGV[0] eq "-i");
 
 # Use -n as second argument to make it use the third argument as namespace parameter ie. -n KDOM
@@ -46,9 +44,12 @@ my @hashes = ();
 
 my $inside = 0;
 my $name;
-my $size;
+my $pefectHashSize;
+my $compactSize;
+my $compactHashSizeMask;
 my $banner = 0;
-sub calcSize();
+sub calcPerfectHashSize();
+sub calcCompactHashSize();
 sub output();
 sub jsc_ucfirst($);
 sub hashValue($);
@@ -65,7 +66,8 @@ while (<IN>) {
             print STDERR "WARNING: \@begin without table name, skipping $_\n";
         }
     } elsif (/^\@end\s*$/ && $inside) {
-        calcSize();
+        calcPerfectHashSize();
+        calcCompactHashSize();
         output();
 
         @keys = ();
@@ -116,23 +118,23 @@ sub jsc_ucfirst($)
 
 sub ceilingToPowerOf2
 {
-    my ($size) = @_;
+    my ($pefectHashSize) = @_;
 
     my $powerOf2 = 1;
-    while ($size > $powerOf2) {
+    while ($pefectHashSize > $powerOf2) {
         $powerOf2 <<= 1;
     }
 
     return $powerOf2;
 }
 
-sub calcSize()
+sub calcPerfectHashSize()
 {
 tableSizeLoop:
-    for ($size = ceilingToPowerOf2(scalar @keys); ; $size += $size) {
+    for ($pefectHashSize = ceilingToPowerOf2(scalar @keys); ; $pefectHashSize += $pefectHashSize) {
         my @table = ();
         foreach my $key (@keys) {
-            my $h = hashValue($key) % $size;
+            my $h = hashValue($key) % $pefectHashSize;
             next tableSizeLoop if $table[$h];
             $table[$h] = 1;
         }
@@ -143,6 +145,36 @@ tableSizeLoop:
 sub leftShift($$) {
     my ($value, $distance) = @_;
     return (($value << $distance) & 0xFFFFFFFF);
+}
+
+sub calcCompactHashSize()
+{
+    my @table = ();
+    my @links = ();
+    my $compactHashSize = ceilingToPowerOf2(2 * @keys);
+    $compactHashSizeMask = $compactHashSize - 1;
+    $compactSize = $compactHashSize;
+    my $collisions = 0;
+    my $maxdepth = 0;
+    my $i = 0;
+    foreach my $key (@keys) {
+        my $depth = 0;
+        my $h = hashValue($key) % $compactHashSize;
+        while (defined($table[$h])) {
+            if (defined($links[$h])) {
+                $h = $links[$h];
+                $depth++;
+            } else {
+                $collisions++;
+                $links[$h] = $compactSize;
+                $h = $compactSize;
+                $compactSize++;
+            }
+        }
+        $table[$h] = $i;
+        $i++;
+        $maxdepth = $depth if ( $depth > $maxdepth);
+    }
 }
 
 # Paul Hsieh's SuperFastHash
@@ -207,7 +239,7 @@ sub output() {
     my $nameEntries = "${name}Values";
     $nameEntries =~ s/:/_/g;
 
-    print "\n#include \"lookup.h\"\n" if ($includelookup);
+    print "\n#include \"Lookup.h\"\n" if ($includelookup);
     if ($useNameSpace) {
         print "\nnamespace ${useNameSpace} {\n";
         print "\nusing namespace JSC;\n";
@@ -215,7 +247,7 @@ sub output() {
         print "\nnamespace JSC {\n";
     }
     my $count = scalar @keys + 1;
-    print "\nstatic const struct HashTableValue ${nameEntries}[$count] = {\n";
+    print "\nstatic const struct HashTableValue ${nameEntries}\[$count\] = {\n";
     my $i = 0;
     foreach my $key (@keys) {
         my $firstValue = "";
@@ -236,7 +268,7 @@ sub output() {
     }
     print "   { 0, 0, 0, 0 }\n";
     print "};\n\n";
-    print "extern const struct HashTable $name = ";
-    print "\{ ", $size - 1, ", $nameEntries, 0 \};\n\n";
+    print "extern const struct HashTable $name =\n";
+    print "    \{ $compactSize, $compactHashSizeMask, $nameEntries, 0 \};\n";
     print "} // namespace\n";
 }

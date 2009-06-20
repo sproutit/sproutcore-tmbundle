@@ -26,98 +26,66 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef RegisterID_h
-#define RegisterID_h
+#ifndef SourceCode_h
+#define SourceCode_h
 
-#include <wtf/Assertions.h>
-#include <wtf/Noncopyable.h>
-#include <wtf/VectorTraits.h>
+#include "SourceProvider.h"
+#include <wtf/RefPtr.h>
 
 namespace JSC {
 
-    class RegisterID : Noncopyable {
+    class SourceCode {
     public:
-        RegisterID()
-            : m_refCount(0)
-            , m_isTemporary(false)
-#ifndef NDEBUG
-            , m_didSetIndex(false)
-#endif
+        SourceCode()
+            : m_startChar(0)
+            , m_endChar(0)
+            , m_firstLine(0)
         {
         }
 
-        explicit RegisterID(int index)
-            : m_refCount(0)
-            , m_index(index)
-            , m_isTemporary(false)
-#ifndef NDEBUG
-            , m_didSetIndex(true)
-#endif
+        SourceCode(PassRefPtr<SourceProvider> provider, int firstLine = 1)
+            : m_provider(provider)
+            , m_startChar(0)
+            , m_endChar(m_provider->length())
+            , m_firstLine(std::max(firstLine, 1))
         {
         }
 
-        void setIndex(int index)
+        SourceCode(PassRefPtr<SourceProvider> provider, int start, int end, int firstLine)
+            : m_provider(provider)
+            , m_startChar(start)
+            , m_endChar(end)
+            , m_firstLine(std::max(firstLine, 1))
         {
-            ASSERT(!m_refCount);
-#ifndef NDEBUG
-            m_didSetIndex = true;
-#endif
-            m_index = index;
         }
 
-        void setTemporary()
+        UString toString() const
         {
-            m_isTemporary = true;
+            if (!m_provider)
+                return UString();
+            return m_provider->getRange(m_startChar, m_endChar);
         }
-
-        int index() const
-        {
-            ASSERT(m_didSetIndex);
-            return m_index;
-        }
-
-        bool isTemporary()
-        {
-            return m_isTemporary;
-        }
-
-        void ref()
-        {
-            ++m_refCount;
-        }
-
-        void deref()
-        {
-            --m_refCount;
-            ASSERT(m_refCount >= 0);
-        }
-
-        int refCount() const
-        {
-            return m_refCount;
-        }
+        
+        bool isNull() const { return !m_provider; }
+        SourceProvider* provider() const { return m_provider.get(); }
+        int firstLine() const { return m_firstLine; }
+        int startOffset() const { return m_startChar; }
+        int endOffset() const { return m_endChar; }
+        const UChar* data() const { return m_provider->data() + m_startChar; }
+        int length() const { return m_endChar - m_startChar; }
 
     private:
-
-        int m_refCount;
-        int m_index;
-        bool m_isTemporary;
-#ifndef NDEBUG
-        bool m_didSetIndex;
-#endif
+        RefPtr<SourceProvider> m_provider;
+        int m_startChar;
+        int m_endChar;
+        int m_firstLine;
     };
 
-    inline RegisterID* ignoredResult() { return reinterpret_cast<RegisterID*>(1); }
+    inline SourceCode makeSource(const UString& source, const UString& url = UString(), int firstLine = 1)
+    {
+        return SourceCode(UStringSourceProvider::create(source, url), firstLine);
+    }
 
 } // namespace JSC
 
-namespace WTF {
-
-    template<> struct VectorTraits<JSC::RegisterID> : VectorTraitsBase<true, JSC::RegisterID> {
-        static const bool needsInitialization = true;
-        static const bool canInitializeWithMemset = true; // Default initialization just sets everything to 0 or false, so this is safe.
-    };
-
-} // namespace WTF
-
-#endif // RegisterID_h
+#endif // SourceCode_h

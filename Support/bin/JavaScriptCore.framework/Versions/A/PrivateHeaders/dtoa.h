@@ -18,21 +18,20 @@
  *
  */
 
-#ifndef KJS_dtoa_h
-#define KJS_dtoa_h
+#ifndef WTF_dtoa_h
+#define WTF_dtoa_h
 
 namespace WTF {
     class Mutex;
 }
 
-namespace JSC {
+namespace WTF {
 
     extern WTF::Mutex* s_dtoaP5Mutex;
 
     double strtod(const char* s00, char** se);
-    char* dtoa(double d, int ndigits, int* decpt, int* sign, char** rve);
-    void freedtoa(char* s);
+    void dtoa(char* result, double d, int ndigits, int* decpt, int* sign, char** rve);
 
-} // namespace JSC
+} // namespace WTF
 
-#endif /* KJS_dtoa_h */
+#endif // WTF_dtoa_h

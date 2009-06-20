@@ -29,6 +29,8 @@
 #ifndef CallData_h
 #define CallData_h
 
+#include "NativeFunctionWrapper.h"
+
 namespace JSC {
 
     class ArgList;
@@ -44,7 +46,7 @@ namespace JSC {
         CallTypeJS
     };
 
-    typedef JSValue* (*NativeFunction)(ExecState*, JSObject*, JSValue* thisValue, const ArgList&);
+    typedef JSValue (JSC_HOST_CALL *NativeFunction)(ExecState*, JSObject*, JSValue thisValue, const ArgList&);
 
     union CallData {
         struct {
@@ -56,7 +58,7 @@ namespace JSC {
         } js;
     };
 
-    JSValue* call(ExecState*, JSValue* functionObject, CallType, const CallData&, JSValue* thisValue, const ArgList&);
+    JSValue call(ExecState*, JSValue functionObject, CallType, const CallData&, JSValue thisValue, const ArgList&);
 
 } // namespace JSC
 

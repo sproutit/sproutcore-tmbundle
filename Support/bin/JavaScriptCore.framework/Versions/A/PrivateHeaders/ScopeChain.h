@@ -41,6 +41,18 @@ namespace JSC {
         {
             ASSERT(globalData);
         }
+#ifndef NDEBUG
+        // Due to the number of subtle and timing dependent bugs that have occurred due
+        // to deleted but still "valid" ScopeChainNodes we now deliberately clobber the
+        // contents in debug builds.
+        ~ScopeChainNode()
+        {
+            next = 0;
+            object = 0;
+            globalData = 0;
+            globalThis = 0;
+        }
+#endif
 
         ScopeChainNode* next;
         JSObject* object;
@@ -48,8 +60,8 @@ namespace JSC {
         JSObject* globalThis;
         int refCount;
 
-        void deref() { if (--refCount == 0) release(); }
-        void ref() { ++refCount; }
+        void deref() { ASSERT(refCount); if (--refCount == 0) { release();} }
+        void ref() { ASSERT(refCount); ++refCount; }
         void release();
 
         // Before calling "push" on a bare ScopeChainNode, a client should
@@ -62,8 +74,6 @@ namespace JSC {
             ref();
             return this;
         }
-
-        JSObject* bottom() const;
 
         ScopeChainNode* push(JSObject*);
         ScopeChainNode* pop();
@@ -96,14 +106,6 @@ namespace JSC {
             delete this;
 
         return result;
-    }
-
-    inline JSObject* ScopeChainNode::bottom() const
-    {
-        const ScopeChainNode* n = this;
-        while (n->next)
-            n = n->next;
-        return n->object;
     }
 
     inline void ScopeChainNode::release()
@@ -153,6 +155,7 @@ namespace JSC {
     class NoScopeChain {};
 
     class ScopeChain {
+        friend class JIT;
     public:
         ScopeChain(NoScopeChain)
             : m_node(0)
@@ -180,6 +183,9 @@ namespace JSC {
         {
             if (m_node)
                 m_node->deref();
+#ifndef NDEBUG
+            m_node = 0;
+#endif
         }
 
         void swap(ScopeChain&);
@@ -187,7 +193,6 @@ namespace JSC {
         ScopeChainNode* node() const { return m_node; }
 
         JSObject* top() const { return m_node->object; }
-        JSObject* bottom() const { return m_node->bottom(); }
 
         ScopeChainIterator begin() const { return m_node->begin(); }
         ScopeChainIterator end() const { return m_node->end(); }
@@ -200,6 +205,13 @@ namespace JSC {
         JSGlobalObject* globalObject() const { return m_node->globalObject(); }
 
         void mark() const;
+
+        // Caution: this should only be used if the codeblock this is being used
+        // with needs a full scope chain, otherwise this returns the depth of
+        // the preceeding call frame
+        //
+        // Returns the depth of the current call frame's scope chain
+        int localDepth() const;
 
 #ifndef NDEBUG        
         void print() const { m_node->print(); }

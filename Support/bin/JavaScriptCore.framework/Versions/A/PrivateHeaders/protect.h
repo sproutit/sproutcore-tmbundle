@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2004, 2008 Apple Inc. All rights reserved.
+ *  Copyright (C) 2004, 2008, 2009 Apple Inc. All rights reserved.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -19,45 +19,53 @@
  */
 
 
-#ifndef protect_h
-#define protect_h
+#ifndef Protect_h
+#define Protect_h
 
-#include "JSValue.h"
-#include "collector.h"
+#include "JSCell.h"
+#include "Collector.h"
 
 namespace JSC {
 
-    inline void gcProtect(JSValue* val) 
+    inline void gcProtect(JSCell* val) 
     {
-        Heap* heap = Heap::heap(val);
-        if (heap)
-            heap->protect(val);
+        Heap::heap(val)->protect(val);
     }
 
-    inline void gcUnprotect(JSValue* val)
+    inline void gcUnprotect(JSCell* val)
     {
-        Heap* heap = Heap::heap(val);
-        if (heap)
-            heap->unprotect(val);
+        Heap::heap(val)->unprotect(val);
     }
 
-    inline void gcProtectNullTolerant(JSValue* val) 
+    inline void gcProtectNullTolerant(JSCell* val) 
     {
         if (val) 
             gcProtect(val);
     }
 
-    inline void gcUnprotectNullTolerant(JSValue* val) 
+    inline void gcUnprotectNullTolerant(JSCell* val) 
     {
         if (val) 
             gcUnprotect(val);
     }
     
+    inline void gcProtect(JSValue value)
+    {
+        if (value && value.isCell())
+            gcProtect(asCell(value));
+    }
+
+    inline void gcUnprotect(JSValue value)
+    {
+        if (value && value.isCell())
+            gcUnprotect(asCell(value));
+    }
+
     // FIXME: Share more code with RefPtr template? The only differences are the ref/deref operation
     // and the implicit conversion to raw pointer
     template <class T> class ProtectedPtr {
     public:
-        ProtectedPtr() : m_ptr(0) { }
+        ProtectedPtr() : m_ptr(0) {}
         ProtectedPtr(T* ptr);
         ProtectedPtr(const ProtectedPtr&);
         ~ProtectedPtr();
@@ -66,9 +74,11 @@ namespace JSC {
         
         T* get() const { return m_ptr; }
         operator T*() const { return m_ptr; }
+        operator JSValue() const { return JSValue(m_ptr); }
         T* operator->() const { return m_ptr; }
         
-        bool operator!() const { return m_ptr == NULL; }
+        operator bool() const { return m_ptr; }
+        bool operator!() const { return !m_ptr; }
 
         ProtectedPtr& operator=(const ProtectedPtr&);
         ProtectedPtr& operator=(T*);
@@ -77,40 +87,59 @@ namespace JSC {
         T* m_ptr;
     };
 
-    template <class T> ProtectedPtr<T>::ProtectedPtr(T* ptr)
+    class ProtectedJSValue {
+    public:
+        ProtectedJSValue() {}
+        ProtectedJSValue(JSValue value);
+        ProtectedJSValue(const ProtectedJSValue&);
+        ~ProtectedJSValue();
+
+        template <class U> ProtectedJSValue(const ProtectedPtr<U>&);
+        
+        JSValue get() const { return m_value; }
+        operator JSValue() const { return m_value; }
+        JSValue operator->() const { return m_value; }
+        
+        operator bool() const { return m_value; }
+        bool operator!() const { return !m_value; }
+
+        ProtectedJSValue& operator=(const ProtectedJSValue&);
+        ProtectedJSValue& operator=(JSValue);
+        
+    private:
+        JSValue m_value;
+    };
+
+    template <class T> inline ProtectedPtr<T>::ProtectedPtr(T* ptr)
         : m_ptr(ptr)
     {
-        if (ptr)
-            gcProtect(ptr);
+        gcProtectNullTolerant(m_ptr);
     }
 
-    template <class T> ProtectedPtr<T>::ProtectedPtr(const ProtectedPtr& o)
+    template <class T> inline ProtectedPtr<T>::ProtectedPtr(const ProtectedPtr& o)
         : m_ptr(o.get())
     {
-        if (T* ptr = m_ptr)
-            gcProtect(ptr);
+        gcProtectNullTolerant(m_ptr);
     }
 
-    template <class T> ProtectedPtr<T>::~ProtectedPtr()
+    template <class T> inline ProtectedPtr<T>::~ProtectedPtr()
     {
-        if (T* ptr = m_ptr)
-            gcUnprotect(ptr);
+        gcUnprotectNullTolerant(m_ptr);
     }
 
-    template <class T> template <class U> ProtectedPtr<T>::ProtectedPtr(const ProtectedPtr<U>& o)
+    template <class T> template <class U> inline ProtectedPtr<T>::ProtectedPtr(const ProtectedPtr<U>& o)
         : m_ptr(o.get())
     {
-        if (T* ptr = m_ptr)
-            gcProtect(ptr);
+        gcProtectNullTolerant(m_ptr);
     }
 
-    template <class T> ProtectedPtr<T>& ProtectedPtr<T>::operator=(const ProtectedPtr<T>& o) 
+    template <class T> inline ProtectedPtr<T>& ProtectedPtr<T>::operator=(const ProtectedPtr<T>& o) 
     {
         T* optr = o.m_ptr;
         gcProtectNullTolerant(optr);
         gcUnprotectNullTolerant(m_ptr);
         m_ptr = optr;
-            return *this;
+        return *this;
     }
 
     template <class T> inline ProtectedPtr<T>& ProtectedPtr<T>::operator=(T* optr)
@@ -121,6 +150,46 @@ namespace JSC {
         return *this;
     }
 
+    inline ProtectedJSValue::ProtectedJSValue(JSValue value)
+        : m_value(value)
+    {
+        gcProtect(m_value);
+    }
+
+    inline ProtectedJSValue::ProtectedJSValue(const ProtectedJSValue& o)
+        : m_value(o.get())
+    {
+        gcProtect(m_value);
+    }
+
+    inline ProtectedJSValue::~ProtectedJSValue()
+    {
+        gcUnprotect(m_value);
+    }
+
+    template <class U> ProtectedJSValue::ProtectedJSValue(const ProtectedPtr<U>& o)
+        : m_value(o.get())
+    {
+        gcProtect(m_value);
+    }
+
+    inline ProtectedJSValue& ProtectedJSValue::operator=(const ProtectedJSValue& o) 
+    {
+        JSValue ovalue = o.m_value;
+        gcProtect(ovalue);
+        gcUnprotect(m_value);
+        m_value = ovalue;
+        return *this;
+    }
+
+    inline ProtectedJSValue& ProtectedJSValue::operator=(JSValue ovalue)
+    {
+        gcProtect(ovalue);
+        gcUnprotect(m_value);
+        m_value = ovalue;
+        return *this;
+    }
+
     template <class T> inline bool operator==(const ProtectedPtr<T>& a, const ProtectedPtr<T>& b) { return a.get() == b.get(); }
     template <class T> inline bool operator==(const ProtectedPtr<T>& a, const T* b) { return a.get() == b; }
     template <class T> inline bool operator==(const T* a, const ProtectedPtr<T>& b) { return a == b.get(); }
@@ -128,7 +197,19 @@ namespace JSC {
     template <class T> inline bool operator!=(const ProtectedPtr<T>& a, const ProtectedPtr<T>& b) { return a.get() != b.get(); }
     template <class T> inline bool operator!=(const ProtectedPtr<T>& a, const T* b) { return a.get() != b; }
     template <class T> inline bool operator!=(const T* a, const ProtectedPtr<T>& b) { return a != b.get(); }
+
+    inline bool operator==(const ProtectedJSValue& a, const ProtectedJSValue& b) { return a.get() == b.get(); }
+    inline bool operator==(const ProtectedJSValue& a, const JSValue b) { return a.get() == b; }
+    template <class T> inline bool operator==(const ProtectedJSValue& a, const ProtectedPtr<T>& b) { return a.get() == JSValue(b.get()); }
+    inline bool operator==(const JSValue a, const ProtectedJSValue& b) { return a == b.get(); }
+    template <class T> inline bool operator==(const ProtectedPtr<T>& a, const ProtectedJSValue& b) { return JSValue(a.get()) == b.get(); }
+
+    inline bool operator!=(const ProtectedJSValue& a, const ProtectedJSValue& b) { return a.get() != b.get(); }
+    inline bool operator!=(const ProtectedJSValue& a, const JSValue b) { return a.get() != b; }
+    template <class T> inline bool operator!=(const ProtectedJSValue& a, const ProtectedPtr<T>& b) { return a.get() != JSValue(b.get()); }
+    inline bool operator!=(const JSValue a, const ProtectedJSValue& b) { return a != b.get(); }
+    template <class T> inline bool operator!=(const ProtectedPtr<T>& a, const ProtectedJSValue& b) { return JSValue(a.get()) != b.get(); }
  
 } // namespace JSC
 
-#endif // protect_h
+#endif // Protect_h

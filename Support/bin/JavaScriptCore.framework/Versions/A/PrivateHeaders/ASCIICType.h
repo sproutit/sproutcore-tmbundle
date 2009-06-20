@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007, 2008 Apple Inc. All rights reserved.
+ * Copyright (C) 2007, 2008, 2009 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -44,6 +44,13 @@
 
 namespace WTF {
 
+    inline bool isASCII(char c) { return !(c & ~0x7F); }
+    inline bool isASCII(unsigned short c) { return !(c & ~0x7F); }
+#if !COMPILER(MSVC) || defined(_NATIVE_WCHAR_T_DEFINED)
+    inline bool isASCII(wchar_t c) { return !(c & ~0x7F); }
+#endif
+    inline bool isASCII(int c) { return !(c & ~0x7F); }
+
     inline bool isASCIIAlpha(char c) { return (c | 0x20) >= 'a' && (c | 0x20) <= 'z'; }
     inline bool isASCIIAlpha(unsigned short c) { return (c | 0x20) >= 'a' && (c | 0x20) <= 'z'; }
 #if !COMPILER(MSVC) || defined(_NATIVE_WCHAR_T_DEFINED)
@@ -51,12 +58,12 @@ namespace WTF {
 #endif
     inline bool isASCIIAlpha(int c) { return (c | 0x20) >= 'a' && (c | 0x20) <= 'z'; }
 
-    inline bool isASCIIAlphanumeric(char c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'z'; }
-    inline bool isASCIIAlphanumeric(unsigned short c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'z'; }
+    inline bool isASCIIAlphanumeric(char c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'z'); }
+    inline bool isASCIIAlphanumeric(unsigned short c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'z'); }
 #if !COMPILER(MSVC) || defined(_NATIVE_WCHAR_T_DEFINED)
-    inline bool isASCIIAlphanumeric(wchar_t c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'z'; }
+    inline bool isASCIIAlphanumeric(wchar_t c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'z'); }
 #endif
-    inline bool isASCIIAlphanumeric(int c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'z'; }
+    inline bool isASCIIAlphanumeric(int c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'z'); }
 
     inline bool isASCIIDigit(char c) { return (c >= '0') & (c <= '9'); }
     inline bool isASCIIDigit(unsigned short c) { return (c >= '0') & (c <= '9'); }
@@ -65,12 +72,12 @@ namespace WTF {
 #endif
     inline bool isASCIIDigit(int c) { return (c >= '0') & (c <= '9'); }
 
-    inline bool isASCIIHexDigit(char c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'f'; }
-    inline bool isASCIIHexDigit(unsigned short c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'f'; }
+    inline bool isASCIIHexDigit(char c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'f'); }
+    inline bool isASCIIHexDigit(unsigned short c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'f'); }
 #if !COMPILER(MSVC) || defined(_NATIVE_WCHAR_T_DEFINED)
-    inline bool isASCIIHexDigit(wchar_t c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'f'; }
+    inline bool isASCIIHexDigit(wchar_t c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'f'); }
 #endif
-    inline bool isASCIIHexDigit(int c) { return c >= '0' && c <= '9' || (c | 0x20) >= 'a' && (c | 0x20) <= 'f'; }
+    inline bool isASCIIHexDigit(int c) { return (c >= '0' && c <= '9') || ((c | 0x20) >= 'a' && (c | 0x20) <= 'f'); }
 
     inline bool isASCIIOctalDigit(char c) { return (c >= '0') & (c <= '7'); }
     inline bool isASCIIOctalDigit(unsigned short c) { return (c >= '0') & (c <= '7'); }
@@ -141,5 +148,19 @@ namespace WTF {
 #endif
     inline bool isASCIIPrintable(int c) { return c >= ' ' && c <= '~'; }
 }
+
+using WTF::isASCII;
+using WTF::isASCIIAlpha;
+using WTF::isASCIIAlphanumeric;
+using WTF::isASCIIDigit;
+using WTF::isASCIIHexDigit;
+using WTF::isASCIILower;
+using WTF::isASCIIOctalDigit;
+using WTF::isASCIIPrintable;
+using WTF::isASCIISpace;
+using WTF::isASCIIUpper;
+using WTF::toASCIIHexValue;
+using WTF::toASCIILower;
+using WTF::toASCIIUpper;
 
 #endif

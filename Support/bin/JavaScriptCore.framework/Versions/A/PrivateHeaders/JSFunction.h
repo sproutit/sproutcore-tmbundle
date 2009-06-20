@@ -1,6 +1,6 @@
 /*
  *  Copyright (C) 1999-2000 Harri Porten (porten@kde.org)
- *  Copyright (C) 2003, 2006, 2007, 2008 Apple Inc. All rights reserved.
+ *  Copyright (C) 2003, 2006, 2007, 2008, 2009 Apple Inc. All rights reserved.
  *  Copyright (C) 2007 Cameron Zwarich (cwzwarich@uwaterloo.ca)
  *  Copyright (C) 2007 Maks Orlovich
  *
@@ -27,7 +27,7 @@
 #include "InternalFunction.h"
 #include "JSVariableObject.h"
 #include "SymbolTable.h"
-#include "nodes.h"
+#include "Nodes.h"
 #include "JSObject.h"
 
 namespace JSC {
@@ -38,47 +38,101 @@ namespace JSC {
     class JSGlobalObject;
 
     class JSFunction : public InternalFunction {
-        friend class Machine;
+        friend class JIT;
+        friend class VPtrSet;
 
         typedef InternalFunction Base;
-        JSFunction(PassRefPtr<JSC::StructureID> st) : InternalFunction(st), m_scopeChain(NoScopeChain()) {}
+
+        JSFunction(PassRefPtr<Structure> structure)
+            : InternalFunction(structure)
+        {
+            clearScopeChain();
+        }
+
     public:
+        JSFunction(ExecState*, PassRefPtr<Structure>, int length, const Identifier&, NativeFunction);
         JSFunction(ExecState*, const Identifier&, FunctionBodyNode*, ScopeChainNode*);
+        ~JSFunction();
 
         virtual bool getOwnPropertySlot(ExecState*, const Identifier&, PropertySlot&);
-        virtual void put(ExecState*, const Identifier& propertyName, JSValue*, PutPropertySlot&);
+        virtual void put(ExecState*, const Identifier& propertyName, JSValue, PutPropertySlot&);
         virtual bool deleteProperty(ExecState*, const Identifier& propertyName);
 
         JSObject* construct(ExecState*, const ArgList&);
-        JSValue* call(ExecState*, JSValue* thisValue, const ArgList&);
+        JSValue call(ExecState*, JSValue thisValue, const ArgList&);
 
-        // Note: Returns a null identifier for any parameters that will never get set
-        // due to a later parameter with the same name.
-        const Identifier& getParameterName(int index);
+        void setScope(const ScopeChain& scopeChain) { setScopeChain(scopeChain); }
+        ScopeChain& scope() { return scopeChain(); }
 
-        void setScope(const ScopeChain& scopeChain) { m_scopeChain = scopeChain; }
-        ScopeChain& scope() { return m_scopeChain; }
+        void setBody(FunctionBodyNode* body) { m_body = body; }
+        void setBody(PassRefPtr<FunctionBodyNode> body) { m_body = body; }
+        FunctionBodyNode* body() const { return m_body.get(); }
 
         virtual void mark();
 
-        static const ClassInfo info;
+        static JS_EXPORTDATA const ClassInfo info;
 
-        // FIXME: This should be private
-        RefPtr<FunctionBodyNode> m_body;
+        static PassRefPtr<Structure> createStructure(JSValue prototype) 
+        { 
+            return Structure::create(prototype, TypeInfo(ObjectType, ImplementsHasInstance)); 
+        }
 
-    private:
-        virtual const ClassInfo* classInfo() const { return &info; }
+#if ENABLE(JIT)
+        bool isHostFunction() const { return m_body && m_body->isHostFunction(); }
+#else
+        bool isHostFunction() const { return false; }
+#endif
+        NativeFunction nativeFunction()
+        {
+            return *reinterpret_cast<NativeFunction*>(m_data);
+        }
 
         virtual ConstructType getConstructData(ConstructData&);
         virtual CallType getCallData(CallData&);
 
-        static JSValue* argumentsGetter(ExecState*, const Identifier&, const PropertySlot&);
-        static JSValue* callerGetter(ExecState*, const Identifier&, const PropertySlot&);
-        static JSValue* lengthGetter(ExecState*, const Identifier&, const PropertySlot&);
+    private:
+        virtual const ClassInfo* classInfo() const { return &info; }
 
-        ScopeChain m_scopeChain;
+        static JSValue argumentsGetter(ExecState*, const Identifier&, const PropertySlot&);
+        static JSValue callerGetter(ExecState*, const Identifier&, const PropertySlot&);
+        static JSValue lengthGetter(ExecState*, const Identifier&, const PropertySlot&);
+
+        RefPtr<FunctionBodyNode> m_body;
+        ScopeChain& scopeChain()
+        {
+            ASSERT(!isHostFunction());
+            return *reinterpret_cast<ScopeChain*>(m_data);
+        }
+        void clearScopeChain()
+        {
+            ASSERT(!isHostFunction());
+            new (m_data) ScopeChain(NoScopeChain());
+        }
+        void setScopeChain(ScopeChainNode* sc)
+        {
+            ASSERT(!isHostFunction());
+            new (m_data) ScopeChain(sc);
+        }
+        void setScopeChain(const ScopeChain& sc)
+        {
+            ASSERT(!isHostFunction());
+            *reinterpret_cast<ScopeChain*>(m_data) = sc;
+        }
+        void setNativeFunction(NativeFunction func)
+        {
+            *reinterpret_cast<NativeFunction*>(m_data) = func;
+        }
+        unsigned char m_data[sizeof(void*)];
     };
 
-} // namespace kJS
+    JSFunction* asFunction(JSValue);
+
+    inline JSFunction* asFunction(JSValue value)
+    {
+        ASSERT(asObject(value)->inherits(&JSFunction::info));
+        return static_cast<JSFunction*>(asObject(value));
+    }
+
+} // namespace JSC
 
 #endif // JSFunction_h

@@ -41,10 +41,12 @@ namespace JSC {
     class Register;
 
     class JSVariableObject : public JSObject {
+        friend class JIT;
+
     public:
         SymbolTable& symbolTable() const { return *d->symbolTable; }
 
-        virtual void putWithAttributes(ExecState*, const Identifier&, JSValue*, unsigned attributes) = 0;
+        virtual void putWithAttributes(ExecState*, const Identifier&, JSValue, unsigned attributes) = 0;
 
         virtual bool deleteProperty(ExecState*, const Identifier&);
         virtual void getPropertyNames(ExecState*, PropertyNameArray&);
@@ -61,29 +63,24 @@ namespace JSC {
         // without increasing their own size (since there's a hard limit on the
         // size of a JSCell).
         struct JSVariableObjectData {
-            JSVariableObjectData(SymbolTable* symbolTable_, Register* registers_)
-                : symbolTable(symbolTable_)
-                , registers(registers_)
+            JSVariableObjectData(SymbolTable* symbolTable, Register* registers)
+                : symbolTable(symbolTable)
+                , registers(registers)
             {
-                ASSERT(symbolTable_);
+                ASSERT(symbolTable);
             }
 
             SymbolTable* symbolTable; // Maps name -> offset from "r" in register file.
             Register* registers; // "r" in the register file.
             OwnArrayPtr<Register> registerArray; // Independent copy of registers, used when a variable object copies its registers out of the register file.
 
-            static inline ptrdiff_t offsetOf_registers()
-            {
-                return OBJECT_OFFSET(JSVariableObjectData, registers);
-            }
-
         private:
             JSVariableObjectData(const JSVariableObjectData&);
             JSVariableObjectData& operator=(const JSVariableObjectData&);
         };
 
-        JSVariableObject(PassRefPtr<StructureID> structureID, JSVariableObjectData* data)
-            : JSObject(structureID)
+        JSVariableObject(PassRefPtr<Structure> structure, JSVariableObjectData* data)
+            : JSObject(structure)
             , d(data) // Subclass owns this pointer.
         {
         }
@@ -93,21 +90,10 @@ namespace JSC {
 
         bool symbolTableGet(const Identifier&, PropertySlot&);
         bool symbolTableGet(const Identifier&, PropertySlot&, bool& slotIsWriteable);
-        bool symbolTablePut(const Identifier&, JSValue*);
-        bool symbolTablePutWithAttributes(const Identifier&, JSValue*, unsigned attributes);
+        bool symbolTablePut(const Identifier&, JSValue);
+        bool symbolTablePutWithAttributes(const Identifier&, JSValue, unsigned attributes);
 
         JSVariableObjectData* d;
-
-    public:
-        static inline ptrdiff_t offsetOf_d()
-        {
-            return OBJECT_OFFSET(JSVariableObject, d);
-        }
-
-        static inline ptrdiff_t offsetOf_Data_registers()
-        {
-            return JSVariableObjectData::offsetOf_registers();
-        }
     };
 
     inline bool JSVariableObject::symbolTableGet(const Identifier& propertyName, PropertySlot& slot)
@@ -131,7 +117,7 @@ namespace JSC {
         return false;
     }
 
-    inline bool JSVariableObject::symbolTablePut(const Identifier& propertyName, JSValue* value)
+    inline bool JSVariableObject::symbolTablePut(const Identifier& propertyName, JSValue value)
     {
         ASSERT(!Heap::heap(value) || Heap::heap(value) == Heap::heap(this));
 
@@ -144,7 +130,7 @@ namespace JSC {
         return true;
     }
 
-    inline bool JSVariableObject::symbolTablePutWithAttributes(const Identifier& propertyName, JSValue* value, unsigned attributes)
+    inline bool JSVariableObject::symbolTablePutWithAttributes(const Identifier& propertyName, JSValue value, unsigned attributes)
     {
         ASSERT(!Heap::heap(value) || Heap::heap(value) == Heap::heap(this));
 

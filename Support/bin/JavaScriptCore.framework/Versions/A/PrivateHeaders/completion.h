@@ -20,12 +20,16 @@
  *
  */
 
-#ifndef KJS_COMPLETION_H
-#define KJS_COMPLETION_H
+#ifndef Completion_h
+#define Completion_h
+
+#include "JSValue.h"
 
 namespace JSC {
 
-    class JSValue;
+    class ExecState;
+    class ScopeChain;
+    class SourceCode;
 
     enum ComplType { Normal, Break, Continue, ReturnValue, Throw, Interrupted };
 
@@ -35,22 +39,25 @@ namespace JSC {
      */
     class Completion {
     public:
-        Completion(ComplType type = Normal, JSValue* value = 0)
+        Completion(ComplType type = Normal, JSValue value = JSValue())
             : m_type(type)
             , m_value(value)
         {
         }
 
         ComplType complType() const { return m_type; }
-        JSValue* value() const { return m_value; }
-        void setValue(JSValue* v) { m_value = v; }
-        bool isValueCompletion() const { return !!m_value; }
+        JSValue value() const { return m_value; }
+        void setValue(JSValue v) { m_value = v; }
+        bool isValueCompletion() const { return m_value; }
 
     private:
         ComplType m_type;
-        JSValue* m_value;
+        JSValue m_value;
     };
+
+    Completion checkSyntax(ExecState*, const SourceCode&);
+    Completion evaluate(ExecState*, ScopeChain&, const SourceCode&, JSValue thisValue = JSValue());
 
 } // namespace JSC
 
-#endif // KJS_COMPLETION_H
+#endif // Completion_h

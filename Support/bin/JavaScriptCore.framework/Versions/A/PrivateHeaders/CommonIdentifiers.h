@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2003,2007 Apple Computer, Inc
+ *  Copyright (C) 2003, 2007, 2009 Apple Inc. All rights reserved.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -21,10 +21,10 @@
 #ifndef CommonIdentifiers_h
 #define CommonIdentifiers_h
 
-#include "identifier.h"
+#include "Identifier.h"
 #include <wtf/Noncopyable.h>
 
-// ArgList of property names, passed to a macro so we can do set them up various
+// MarkedArgumentBuffer of property names, passed to a macro so we can do set them up various
 // ways without repeating the list.
 #define JSC_COMMON_IDENTIFIERS_EACH_PROPERTY_NAME(macro) \
     macro(__defineGetter__) \
@@ -59,11 +59,13 @@
     macro(test) \
     macro(toExponential) \
     macro(toFixed) \
+    macro(toJSON) \
     macro(toLocaleString) \
     macro(toPrecision) \
     macro(toString) \
     macro(UTC) \
-    macro(valueOf)
+    macro(valueOf) \
+    macro(displayName)
 
 namespace JSC {
 
@@ -74,6 +76,7 @@ namespace JSC {
 
     public:
         const Identifier nullIdentifier;
+        const Identifier emptyIdentifier;
         const Identifier underscoreProto;
         const Identifier thisIdentifier;
 

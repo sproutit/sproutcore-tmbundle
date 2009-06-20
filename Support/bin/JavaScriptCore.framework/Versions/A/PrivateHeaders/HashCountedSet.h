@@ -1,6 +1,5 @@
 /*
- * This file is part of the KDE libraries
- * Copyright (C) 2005 Apple Computer, Inc.
+ * Copyright (C) 2005, 2006, 2008 Apple Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -23,13 +22,14 @@
 #define WTF_HashCountedSet_h
 
 #include "Assertions.h"
+#include "FastAllocBase.h"
 #include "HashMap.h"
 #include "Vector.h"
 
 namespace WTF {
 
     template<typename Value, typename HashFunctions = typename DefaultHash<Value>::Hash,
-        typename Traits = HashTraits<Value> > class HashCountedSet {
+        typename Traits = HashTraits<Value> > class HashCountedSet : public FastAllocBase {
     private:
         typedef HashMap<Value, unsigned, HashFunctions, Traits> ImplType;
     public:

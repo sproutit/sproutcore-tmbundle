@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2003, 2006, 2007 Apple Inc. All rights reserved.
+ *  Copyright (C) 2003, 2006, 2007, 2008, 2009 Apple Inc. All rights reserved.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -18,18 +18,18 @@
  *
  */
 
-#ifndef KJS_IDENTIFIER_H
-#define KJS_IDENTIFIER_H
+#ifndef Identifier_h
+#define Identifier_h
 
 #include "JSGlobalData.h"
-#include "ustring.h"
+#include "UString.h"
 
 namespace JSC {
 
     class ExecState;
 
     class Identifier {
-        friend class PropertyMap;
+        friend class Structure;
     public:
         Identifier() { }
 
@@ -68,6 +68,7 @@ namespace JSC {
         friend bool operator!=(const Identifier&, const Identifier&);
 
         friend bool operator==(const Identifier&, const char*);
+        friend bool operator!=(const Identifier&, const char*);
     
         static void remove(UString::Rep*);
 
@@ -77,8 +78,6 @@ namespace JSC {
 
         static PassRefPtr<UString::Rep> add(ExecState*, const char*); // Only to be used with string literals.
         static PassRefPtr<UString::Rep> add(JSGlobalData*, const char*); // Only to be used with string literals.
-
-        static void initializeIdentifierThreading();
 
     private:
         UString _ustring;
@@ -132,9 +131,14 @@ namespace JSC {
         return Identifier::equal(a, b);
     }
 
+    inline bool operator!=(const Identifier& a, const char* b)
+    {
+        return !Identifier::equal(a, b);
+    }
+
     IdentifierTable* createIdentifierTable();
     void deleteIdentifierTable(IdentifierTable*);
 
 } // namespace JSC
 
-#endif // KJS_IDENTIFIER_H
+#endif // Identifier_h

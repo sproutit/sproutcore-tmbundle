@@ -24,10 +24,10 @@
 #define JSString_h
 
 #include "CommonIdentifiers.h"
-#include "ExecState.h"
+#include "CallFrame.h"
+#include "Identifier.h"
 #include "JSNumberCell.h"
 #include "PropertySlot.h"
-#include "identifier.h"
 
 namespace JSC {
 
@@ -59,12 +59,12 @@ namespace JSC {
     JSString* jsOwnedString(ExecState*, const UString&); 
 
     class JSString : public JSCell {
-        friend class CTI;
-        friend class Machine;
+        friend class JIT;
+        friend class VPtrSet;
 
     public:
         JSString(JSGlobalData* globalData, const UString& value)
-            : JSCell(globalData->stringStructureID.get())
+            : JSCell(globalData->stringStructure.get())
             , m_value(value)
         {
             Heap::heap(this)->reportExtraMemoryCost(value.cost());
@@ -72,12 +72,12 @@ namespace JSC {
 
         enum HasOtherOwnerType { HasOtherOwner };
         JSString(JSGlobalData* globalData, const UString& value, HasOtherOwnerType)
-            : JSCell(globalData->stringStructureID.get())
+            : JSCell(globalData->stringStructure.get())
             , m_value(value)
         {
         }
         JSString(JSGlobalData* globalData, PassRefPtr<UString::Rep> value, HasOtherOwnerType)
-            : JSCell(globalData->stringStructureID.get())
+            : JSCell(globalData->stringStructure.get())
             , m_value(value)
         {
         }
@@ -90,7 +90,7 @@ namespace JSC {
         bool canGetIndex(unsigned i) { return i < static_cast<unsigned>(m_value.size()); }
         JSString* getIndex(JSGlobalData*, unsigned);
 
-        static PassRefPtr<StructureID> createStructureID(JSValue* proto) { return StructureID::create(proto, TypeInfo(StringType, NeedsThisConversion)); }
+        static PassRefPtr<Structure> createStructure(JSValue proto) { return Structure::create(proto, TypeInfo(StringType, NeedsThisConversion)); }
 
     private:
         enum VPtrStealingHackType { VPtrStealingHack };
@@ -99,8 +99,8 @@ namespace JSC {
         {
         }
 
-        virtual JSValue* toPrimitive(ExecState*, PreferredPrimitiveType) const;
-        virtual bool getPrimitiveNumber(ExecState*, double& number, JSValue*& value);
+        virtual JSValue toPrimitive(ExecState*, PreferredPrimitiveType) const;
+        virtual bool getPrimitiveNumber(ExecState*, double& number, JSValue& value);
         virtual bool toBoolean(ExecState*) const;
         virtual double toNumber(ExecState*) const;
         virtual JSObject* toObject(ExecState*) const;
@@ -116,6 +116,14 @@ namespace JSC {
 
         UString m_value;
     };
+
+    JSString* asString(JSValue);
+
+    inline JSString* asString(JSValue value)
+    {
+        ASSERT(asCell(value)->isString());
+        return static_cast<JSString*>(asCell(value));
+    }
 
     inline JSString* jsEmptyString(JSGlobalData* globalData)
     {
@@ -194,11 +202,13 @@ namespace JSC {
         return false;
     }
 
+    inline bool isJSString(JSGlobalData* globalData, JSValue v) { return v.isCell() && v.asCell()->vptr() == globalData->jsStringVPtr; }
+
     // --- JSValue inlines ----------------------------
 
     inline JSString* JSValue::toThisJSString(ExecState* exec)
     {
-        return JSImmediate::isImmediate(this) ? jsString(exec, JSImmediate::toString(this)) : asCell()->toThisJSString(exec);
+        return JSImmediate::isImmediate(asValue()) ? jsString(exec, JSImmediate::toString(asValue())) : asCell()->toThisJSString(exec);
     }
 
 } // namespace JSC

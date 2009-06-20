@@ -1,6 +1,6 @@
 /*
  *  Copyright (C) 2006 Maks Orlovich
- *  Copyright (C) 2006, 2008 Apple Inc. All rights reserved.
+ *  Copyright (C) 2006, 2007, 2008, 2009 Apple Inc. All rights reserved.
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -19,8 +19,8 @@
  *
  */
 
-#ifndef KJS_JSWrapperObject_h
-#define KJS_JSWrapperObject_h
+#ifndef JSWrapperObject_h
+#define JSWrapperObject_h
 
 #include "JSObject.h"
 
@@ -29,31 +29,31 @@ namespace JSC {
     // This class is used as a base for classes such as String,
     // Number, Boolean and Date which are wrappers for primitive types.
     class JSWrapperObject : public JSObject {
+    protected:
+        explicit JSWrapperObject(PassRefPtr<Structure>);
+
     public:
-        explicit JSWrapperObject(PassRefPtr<StructureID>);
-        
-        JSValue* internalValue() const { return m_internalValue; }
-        void setInternalValue(JSValue*);
+        JSValue internalValue() const { return m_internalValue; }
+        void setInternalValue(JSValue);
         
         virtual void mark();
         
     private:
-        JSValue* m_internalValue;
+        JSValue m_internalValue;
     };
     
-    inline JSWrapperObject::JSWrapperObject(PassRefPtr<StructureID> structure)
+    inline JSWrapperObject::JSWrapperObject(PassRefPtr<Structure> structure)
         : JSObject(structure)
-        , m_internalValue(0)
     {
     }
     
-    inline void JSWrapperObject::setInternalValue(JSValue* value)
+    inline void JSWrapperObject::setInternalValue(JSValue value)
     {
         ASSERT(value);
-        ASSERT(!value->isObject());
+        ASSERT(!value.isObject());
         m_internalValue = value;
     }
 
 } // namespace JSC
 
-#endif // KJS_JSWrapperObject_h
+#endif // JSWrapperObject_h
