@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.SegmentedView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layoutDirection: ${7:SC.LAYOUT_VERTICAL},
+  allowsMultipleSelection: ${8:NO},
+  allowsEmptySelection: ${9:YES},
+  items: [${10:{ title: 'Welcome', value: 'welcome'\}, ...}],
+  itemTitleKey: '${11:title}',
+  itemValueKey: '${12:value}'
+}),</string>
+	<key>name</key>
+	<string>segmented</string>
+	<key>tabTrigger</key>
+	<string>segmented</string>
+	<key>uuid</key>
+	<string>DCC493CF-FA0A-41E2-8403-5EBF0AA79051</string>
+</dict>
+</plist>

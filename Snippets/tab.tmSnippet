@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.TabView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  items: [${6:{ title: 'Welcome', value: 'welcome'\}, ...}],
+  itemTitleKey: '${7:title}',
+  itemValueKey: '${8:value}',
+  value: '${9:welcome}'
+}),</string>
+	<key>name</key>
+	<string>tab</string>
+	<key>tabTrigger</key>
+	<string>tab</string>
+	<key>uuid</key>
+	<string>6542C796-ACDB-4CF5-8AA7-0B39EDB91028</string>
+</dict>
+</plist>

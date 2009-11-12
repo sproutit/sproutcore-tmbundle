@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.ContainerView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  nowShowing: '${6:viewName}'.w()
+}),</string>
+	<key>name</key>
+	<string>container</string>
+	<key>tabTrigger</key>
+	<string>container</string>
+	<key>uuid</key>
+	<string>20FB0999-0387-49F6-8001-0B45BDD80F5C</string>
+</dict>
+</plist>

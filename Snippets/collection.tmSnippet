@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.CollectionView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  contentBinding: '${6:MyApp.controller.arrangedObjects}',
+  selectionBinding: '${7:MyApp.controller.selection}'
+}),</string>
+	<key>name</key>
+	<string>collection</string>
+	<key>tabTrigger</key>
+	<string>collection</string>
+	<key>uuid</key>
+	<string>BEF2F4C9-D0AD-49B2-90E7-4E22480A3AA2</string>
+</dict>
+</plist>

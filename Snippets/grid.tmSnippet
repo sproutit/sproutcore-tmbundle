@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.GridView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  contentBinding: '${6:MyApp.controller.arrangedObjects}',
+  selectionBinding: '${7:MyApp.controller.selection}'
+}),</string>
+	<key>name</key>
+	<string>grid</string>
+	<key>tabTrigger</key>
+	<string>grid</string>
+	<key>uuid</key>
+	<string>09AB5F71-F84D-40A6-9C96-37028BBEB67A</string>
+</dict>
+</plist>

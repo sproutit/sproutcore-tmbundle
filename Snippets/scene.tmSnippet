@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.SceneView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  scenes: '${6:master detail}',
+  nowShowing: '${7:master}',
+  transitionDuration: 200
+}),</string>
+	<key>name</key>
+	<string>scene</string>
+	<key>tabTrigger</key>
+	<string>scene</string>
+	<key>uuid</key>
+	<string>1C707F9A-9269-46AE-94CA-3F3BA4A91EC4</string>
+</dict>
+</plist>

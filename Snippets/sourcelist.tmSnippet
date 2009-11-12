@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.SourceListView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  contentBinding: '${6:MyApp.controller.arrangedObjects}',
+  selectionBinding: '${7:MyApp.controller.selection}',
+  contentValueKey: '${8:displayName}'
+}),</string>
+	<key>name</key>
+	<string>sourcelist</string>
+	<key>tabTrigger</key>
+	<string>sourcelist</string>
+	<key>uuid</key>
+	<string>CBABE2E2-553A-4465-8F15-48909E8D210D</string>
+</dict>
+</plist>

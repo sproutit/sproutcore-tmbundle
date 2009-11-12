@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.RadioView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layoutDirection: ${7:SC.LAYOUT_VERTICAL},
+  items: [${8:{ title: 'Welcome', value: 'welcome'\}, ...}],
+  itemTitleKey: '${9:title}',
+  itemValueKey: '${10:value}'
+}),</string>
+	<key>name</key>
+	<string>radio</string>
+	<key>tabTrigger</key>
+	<string>radio</string>
+	<key>uuid</key>
+	<string>D6CE798F-31B7-4079-AFCE-D86D58FCD008</string>
+</dict>
+</plist>

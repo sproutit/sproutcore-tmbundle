@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.TextFieldView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  hint: '${6:Search...}',
+  isPassword: ${7:YES},
+  isTextArea: ${8:NO}
+}),</string>
+	<key>name</key>
+	<string>text</string>
+	<key>tabTrigger</key>
+	<string>text</string>
+	<key>uuid</key>
+	<string>469969AE-DDE8-468B-BDDE-C13BA7B8DD4B</string>
+</dict>
+</plist>

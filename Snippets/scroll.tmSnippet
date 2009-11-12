@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.ScrollView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  contentView: ${6:SC.View...}
+}),</string>
+	<key>name</key>
+	<string>scroll</string>
+	<key>tabTrigger</key>
+	<string>scroll</string>
+	<key>uuid</key>
+	<string>98F56020-A4F6-4BF8-A4D9-D7F7D7E260E2</string>
+</dict>
+</plist>

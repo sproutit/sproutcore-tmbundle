@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.SplitView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  defaultThickness: ${6:0.25},
+  layoutDirection: ${7:SC.LAYOUT_VERTICAL},
+ 
+  topLeftView: ${8:SC.View...}
+
+  dividerView: SC.SplitDividerView.design(),
+ 
+  bottomRightView: ${9:SC.View...}
+}),</string>
+	<key>name</key>
+	<string>split</string>
+	<key>tabTrigger</key>
+	<string>split</string>
+	<key>uuid</key>
+	<string>34DA212D-4091-45FF-9769-5C613A0A1065</string>
+</dict>
+</plist>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>SC.StackedView.design({
+  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  contentBinding: '${6:MyApp.controller.arrangedObjects}',
+  selectionBinding: '${7:MyApp.controller.selection}'
+}),</string>
+	<key>name</key>
+	<string>stacked</string>
+	<key>tabTrigger</key>
+	<string>stacked</string>
+	<key>uuid</key>
+	<string>5C3912AA-2EA2-4132-BB10-EEA6D4C22497</string>
+</dict>
+</plist>
