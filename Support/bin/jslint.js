@@ -1532,7 +1532,9 @@ klass:                              do {
                         token, token.id);
                 }
             }
-            if (initial && !o) {
+            
+            // NOTE: allow free-standing strings like "use strict";
+            if (initial && !o && (token.type !== '(string)')) {
                 warning(
 "Expected an assignment or function call and instead saw an expression.",
                         token);
