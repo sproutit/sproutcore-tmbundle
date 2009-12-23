@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>classNames: '${1:className}'.w(),</string>
+	<string>classNames: '${1:className}'.w()${2:,}</string>
 	<key>name</key>
 	<string>class</string>
 	<key>tabTrigger</key>

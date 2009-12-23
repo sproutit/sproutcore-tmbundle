@@ -4,11 +4,11 @@
 <dict>
 	<key>content</key>
 	<string>SC.TextFieldView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   hint: '${6:Search...}',
   isPassword: ${7:YES},
   isTextArea: ${8:NO}
-}),</string>
+})${9:,}</string>
 	<key>name</key>
 	<string>text</string>
 	<key>tabTrigger</key>

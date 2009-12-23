@@ -4,12 +4,12 @@
 <dict>
 	<key>content</key>
 	<string>SC.TabView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   items: [${6:{ title: 'Welcome', value: 'welcome'\}, ...}],
   itemTitleKey: '${7:title}',
   itemValueKey: '${8:value}',
   value: '${9:welcome}'
-}),</string>
+})${10:,}</string>
 	<key>name</key>
 	<string>tab</string>
 	<key>tabTrigger</key>

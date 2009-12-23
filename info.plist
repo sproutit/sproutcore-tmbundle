@@ -21,10 +21,55 @@
 			<string>5064FC3F-71A7-44B9-96EC-E8F2F2A4E871</string>
 			<string>2BE75842-0D65-4E1E-B6B2-908DFA1D9D42</string>
 			<string>------------------------------------</string>
-			<string>F480CA51-8502-421F-8F42-3D2ADAC9F0F9</string>
+			<string>76DEFB6E-5EAF-402E-A08F-33E978D2CBBD</string>
+			<string>FC6460C6-5EF2-4929-906A-1DA330B56FCA</string>
+			<string>------------------------------------</string>
+			<string>EE5C0C2D-54EB-4036-BBBB-923DB6B0A1CC</string>
+			<string>E6FE1AB2-92CB-4A0E-B6EC-55BEC68748CC</string>
 		</array>
 		<key>submenus</key>
-		<dict/>
+		<dict>
+			<key>76DEFB6E-5EAF-402E-A08F-33E978D2CBBD</key>
+			<dict>
+				<key>items</key>
+				<array>
+					<string>83EBE126-DE99-40D8-98C3-7D1FC36A9BD1</string>
+					<string>469969AE-DDE8-468B-BDDE-C13BA7B8DD4B</string>
+					<string>BAB6CC3A-C49F-4BC2-B56C-6C2272A84491</string>
+					<string>CBABE2E2-553A-4465-8F15-48909E8D210D</string>
+					<string>09AB5F71-F84D-40A6-9C96-37028BBEB67A</string>
+					<string>07892233-78D9-4A0F-A412-95C0248CDCB8</string>
+					<string>BEF2F4C9-D0AD-49B2-90E7-4E22480A3AA2</string>
+					<string>5C3912AA-2EA2-4132-BB10-EEA6D4C22497</string>
+					<string>34DA212D-4091-45FF-9769-5C613A0A1065</string>
+					<string>83C07CEC-4E6A-42F6-AFE4-E5491BFCC162</string>
+					<string>AEAB793D-C19A-458B-BACC-593B9105D709</string>
+					<string>6542C796-ACDB-4CF5-8AA7-0B39EDB91028</string>
+					<string>98F56020-A4F6-4BF8-A4D9-D7F7D7E260E2</string>
+					<string>FDCDFBAC-909F-499A-82F9-CB97672323C8</string>
+					<string>D6CE798F-31B7-4079-AFCE-D86D58FCD008</string>
+					<string>EE6A3FBC-B196-4E80-A850-A182C595FBC5</string>
+					<string>DCC493CF-FA0A-41E2-8403-5EBF0AA79051</string>
+					<string>1C707F9A-9269-46AE-94CA-3F3BA4A91EC4</string>
+					<string>76E73FCE-AC42-4367-B303-2DC0F168400A</string>
+					<string>5EEA2660-F8F0-48D6-828C-DC38FECB1ACC</string>
+					<string>FD11D69B-E63C-4E9C-A6FA-6BA97D25A56C</string>
+					<string>20FB0999-0387-49F6-8001-0B45BDD80F5C</string>
+				</array>
+				<key>name</key>
+				<string>Views</string>
+			</dict>
+			<key>FC6460C6-5EF2-4929-906A-1DA330B56FCA</key>
+			<dict>
+				<key>items</key>
+				<array>
+					<string>BB09A235-A878-4817-B585-4D8DA4787181</string>
+					<string>7F577614-BE15-4A86-B4AD-02E547008623</string>
+				</array>
+				<key>name</key>
+				<string>Logger</string>
+			</dict>
+		</dict>
 	</dict>
 	<key>name</key>
 	<string>SproutCore</string>
@@ -64,8 +109,11 @@
 		<string>1C707F9A-9269-46AE-94CA-3F3BA4A91EC4</string>
 		<string>76E73FCE-AC42-4367-B303-2DC0F168400A</string>
 		<string>5EEA2660-F8F0-48D6-828C-DC38FECB1ACC</string>
+		<string>FD11D69B-E63C-4E9C-A6FA-6BA97D25A56C</string>
 		<string>20FB0999-0387-49F6-8001-0B45BDD80F5C</string>
 		<string>E6FE1AB2-92CB-4A0E-B6EC-55BEC68748CC</string>
+		<string>BB09A235-A878-4817-B585-4D8DA4787181</string>
+		<string>7F577614-BE15-4A86-B4AD-02E547008623</string>
 	</array>
 	<key>uuid</key>
 	<string>B1009C4A-4B02-40F0-ABF2-85F3DD12A8C4</string>

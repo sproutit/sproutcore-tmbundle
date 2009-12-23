@@ -4,9 +4,9 @@
 <dict>
 	<key>content</key>
 	<string>SC.ThumbView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   isEnabled: ${6:YES}
-}),</string>
+})${7:,}</string>
 	<key>name</key>
 	<string>thumb</string>
 	<key>tabTrigger</key>

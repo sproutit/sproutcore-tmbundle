@@ -4,12 +4,12 @@
 <dict>
 	<key>content</key>
 	<string>SC.RadioView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   layoutDirection: ${7:SC.LAYOUT_VERTICAL},
   items: [${8:{ title: 'Welcome', value: 'welcome'\}, ...}],
   itemTitleKey: '${9:title}',
   itemValueKey: '${10:value}'
-}),</string>
+})${11:,}</string>
 	<key>name</key>
 	<string>radio</string>
 	<key>tabTrigger</key>

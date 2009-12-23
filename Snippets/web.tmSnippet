@@ -4,9 +4,9 @@
 <dict>
 	<key>content</key>
 	<string>SC.WebView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   value: '${6:www.google.com}'
-}),</string>
+})${7:,}</string>
 	<key>name</key>
 	<string>web</string>
 	<key>tabTrigger</key>

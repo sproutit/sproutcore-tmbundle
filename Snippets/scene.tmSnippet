@@ -4,11 +4,11 @@
 <dict>
 	<key>content</key>
 	<string>SC.SceneView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   scenes: '${6:master detail}',
   nowShowing: '${7:master}',
   transitionDuration: 200
-}),</string>
+})${8:,}</string>
 	<key>name</key>
 	<string>scene</string>
 	<key>tabTrigger</key>

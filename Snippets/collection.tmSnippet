@@ -4,10 +4,10 @@
 <dict>
 	<key>content</key>
 	<string>SC.CollectionView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   contentBinding: '${6:MyApp.controller.arrangedObjects}',
   selectionBinding: '${7:MyApp.controller.selection}'
-}),</string>
+})${8:,}</string>
 	<key>name</key>
 	<string>collection</string>
 	<key>tabTrigger</key>

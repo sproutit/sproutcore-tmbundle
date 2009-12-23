@@ -4,11 +4,11 @@
 <dict>
 	<key>content</key>
 	<string>SC.ButtonView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   title: '${6:Button}',
   action: '${7:myMethod}',
   target: '${8:MyApp.Controller}'
-}),</string>
+})${9:,}</string>
 	<key>name</key>
 	<string>button</string>
 	<key>tabTrigger</key>

@@ -4,12 +4,12 @@
 <dict>
 	<key>content</key>
 	<string>SC.SliderView.design({
-  layout: {top:${2:0},right:${3:0},bottom:${4:0},left:${5:0}},
+  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
   value: ${6:0.5},
   minimum: ${7:0},
   maximum: ${8:1},
   step: ${9:0.1}
-}),</string>
+})${10:,}</string>
 	<key>name</key>
 	<string>slider</string>
 	<key>tabTrigger</key>
