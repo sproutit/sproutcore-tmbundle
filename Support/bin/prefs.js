@@ -23,5 +23,5 @@ var JSLINT_PREFS = {
   white      : false, // if strict whitespace rules apply
   widget     : false, // if the Yahoo Widgets globals should be predefined
   indent: 2,
-  predef: ['main', 'SC', 'require', 'sc_super', 'YES', 'NO', 'static_url', 'sc_static', 'sc_resource', 'sc_require', 'module', 'test', 'equals', 'same', 'ok', 'CoreTest', 'SproutCore', '$', 'jQuery', 'start', 'stop', 'expect', 'htmlbody', 'exports', 'raises', 'equal', 'notEqual', 'deepEqual', 'deepNotEqual', 'plan']
+  predef: ['main', 'SC', 'require', 'sc_super', 'YES', 'NO', 'static_url', 'sc_static', 'sc_resource', 'sc_require', 'module', 'test', 'equals', 'same', 'ok', 'CoreTest', 'SproutCore', '$', 'jQuery', 'start', 'stop', 'expect', 'htmlbody', 'exports', 'raises', 'equal', 'notEqual', 'deepEqual', 'deepNotEqual', 'plan', 'tiki']
 };
