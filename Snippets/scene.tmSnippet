@@ -4,9 +4,9 @@
 <dict>
 	<key>content</key>
 	<string>SC.SceneView.design({
-  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
-  scenes: '${6:master detail}',
-  nowShowing: '${7:master}',
+  layout: {${2:top:${3:0}}${4:,right:${5:0}}${6:,bottom:${7:0}}${8:,left:${9:0}}${10:,height:${11:0}}${12:,width:${13:0}}},
+  scenes: '${14:master detail}',
+  nowShowing: '${15:master}',
   transitionDuration: 200
 })${8:,}</string>
 	<key>name</key>

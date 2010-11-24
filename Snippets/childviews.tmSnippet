@@ -3,14 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>.set('${1:property}',${2:value})</string>
+	<string>childViews: "${1:Views}".w(),</string>
 	<key>name</key>
-	<string>set()</string>
-	<key>scope</key>
-	<string>source.js</string>
+	<string>childviews</string>
 	<key>tabTrigger</key>
-	<string>.set</string>
+	<string>child</string>
 	<key>uuid</key>
-	<string>7F40070C-B6C3-44B8-90C8-5C4F13062D14</string>
+	<string>C7601FB5-811D-48F9-A348-D0EE91FEFC17</string>
 </dict>
 </plist>

@@ -4,16 +4,17 @@
 <dict>
 	<key>content</key>
 	<string>SC.SplitView.design({
-  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
-  defaultThickness: ${6:0.25},
-  layoutDirection: ${7:SC.LAYOUT_VERTICAL},
+  layout: {${2:top:${3:0}}${4:,right:${5:0}}${6:,bottom:${7:0}}${8:,left:${9:0}}${10:,height:${11:0}}${12:,width:${13:0}}},
+  defaultThickness: ${14:0.25},
+  dividerThickness: ${15:5},
+  layoutDirection: ${16:SC.LAYOUT_VERTICAL},
  
-  topLeftView: ${8:SC.View...}
+  topLeftView: ${17:SC.View...}
 
   dividerView: SC.SplitDividerView.design(),
  
-  bottomRightView: ${9:SC.View...}
-})${10:,}</string>
+  bottomRightView: ${18:SC.View...}
+}),</string>
 	<key>name</key>
 	<string>split</string>
 	<key>tabTrigger</key>

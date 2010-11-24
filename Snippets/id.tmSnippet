@@ -3,14 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>.set('${1:property}',${2:value})</string>
+	<string>layerId: '${1:layerId}',</string>
 	<key>name</key>
-	<string>set()</string>
-	<key>scope</key>
-	<string>source.js</string>
+	<string>id</string>
 	<key>tabTrigger</key>
-	<string>.set</string>
+	<string>id</string>
 	<key>uuid</key>
-	<string>7F40070C-B6C3-44B8-90C8-5C4F13062D14</string>
+	<string>80FCBC4D-780D-4EF3-9D05-F2AD444B39E4</string>
 </dict>
 </plist>

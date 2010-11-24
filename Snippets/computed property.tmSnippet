@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>/**
+ * ${1:Description}
+ *
+ * @field
+ * @type ${2:TYPE}
+*/
+${3:propertyName}DidChange: function(){
+	${5:// Code}
+}.property('${3:${TM_SELECTED_TEXT:${TM_CURRENT_WORD:property}}}'${6:,'${7:secondary}'})${8:,}</string>
+	<key>name</key>
+	<string>computed property</string>
+	<key>tabTrigger</key>
+	<string>computed</string>
+	<key>uuid</key>
+	<string>70432AC3-3691-42CF-A63F-F880E6815520</string>
+</dict>
+</plist>

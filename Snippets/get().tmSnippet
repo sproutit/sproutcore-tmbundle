@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>.get('${1:property}');</string>
+	<string>.get('${1:property}')</string>
 	<key>name</key>
 	<string>get()</string>
 	<key>scope</key>

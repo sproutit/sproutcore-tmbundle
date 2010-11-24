@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>SC.Logger.log("${1:Message}");</string>
+	<string>console.log(${1:"${2:Message}"});</string>
 	<key>name</key>
 	<string>log</string>
 	<key>tabTrigger</key>

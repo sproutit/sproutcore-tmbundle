@@ -4,9 +4,9 @@
 <dict>
 	<key>content</key>
 	<string>SC.ScrollView.design({
-  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
-  contentView: ${6:SC.View...}
-})${7:,}</string>
+  layout: {${2:top:${3:0}}${4:,right:${5:0}}${6:,bottom:${7:0}}${8:,left:${9:0}}${10:,height:${11:0}}${12:,width:${13:0}}},
+  contentView: ${14:SC.View...}
+}),</string>
 	<key>name</key>
 	<string>scroll</string>
 	<key>tabTrigger</key>

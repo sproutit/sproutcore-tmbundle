@@ -4,10 +4,10 @@
 <dict>
 	<key>content</key>
 	<string>SC.GridView.design({
-  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
-  contentBinding: '${6:MyApp.controller.arrangedObjects}',
-  selectionBinding: '${7:MyApp.controller.selection}'
-})${8:,}</string>
+  layout: {${2:top:${3:0}}${4:,right:${5:0}}${6:,bottom:${7:0}}${8:,left:${9:0}}${10:,height:${11:0}}${12:,width:${13:0}}},
+  contentBinding: '${14:MyApp.controller.arrangedObjects}',
+  selectionBinding: '${15:MyApp.controller.selection}'
+}),</string>
 	<key>name</key>
 	<string>grid</string>
 	<key>tabTrigger</key>

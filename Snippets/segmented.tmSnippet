@@ -4,14 +4,14 @@
 <dict>
 	<key>content</key>
 	<string>SC.SegmentedView.design({
-  layout: { top: ${2:0}, right: ${3:0}, bottom: ${4:0}, left: ${5:0} },
-  layoutDirection: ${7:SC.LAYOUT_VERTICAL},
-  allowsMultipleSelection: ${8:NO},
-  allowsEmptySelection: ${9:YES},
-  items: [${10:{ title: 'Welcome', value: 'welcome'\}, ...}],
-  itemTitleKey: '${11:title}',
-  itemValueKey: '${12:value}'
-})${13:,}</string>
+  layout: {${2:top:${3:0}}${4:,right:${5:0}}${6:,bottom:${7:0}}${8:,left:${9:0}}${10:,height:${11:0}}${12:,width:${13:0}}},
+  layoutDirection: ${14:SC.LAYOUT_VERTICAL},
+  allowsMultipleSelection: ${15:NO},
+  allowsEmptySelection: ${16:YES},
+  items: [${117:{ title: 'Welcome', value: 'welcome'\}, ...}],
+  itemTitleKey: '${18:title}',
+  itemValueKey: '${19:value}'
+}),</string>
 	<key>name</key>
 	<string>segmented</string>
 	<key>tabTrigger</key>
